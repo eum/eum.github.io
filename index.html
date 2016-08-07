@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+	<head>
+		<meta charset="UTF-8">
+		<title>bookReader</title>
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="css/swiper.css">
+		<link rel="stylesheet" href="css/animate.css">
+		<link rel="stylesheet" href="css/linkstyles.css">
+		<link rel="stylesheet" href="css/style.css">
+		<script type="text/javascript" src="js/jquery.inview.js"></script>
+		<script type="text/javascript" src="js/swiper.js"></script>
+		<script type="text/javascript" src="js/jquery.leanModal.min.js"></script>
+		<script type="text/javascript" src="js/script.js"></script>
+	</head>
+
+	<body>
+		<!--表紙リスト-->
+		<div class="swiper-container cover-list" id="chapterlist">
+			<div id="div-booktitle" class="booktitle">
+				<p><span class="booktitle--main">ソードアート・オンライン〈1〉</span>
+					<br><span class="booktitle--sub">アインクラッド</span></p>
+			</div>
+			<div class="swiper-wrapper" style="padding-top:5%;">
+				<div class="swiper-slide" id="cover-wrapper">
+					<div id="wrapper" dir="ltr">
+						<div id="episodetitle">
+						</div>
+						<a rel="leanModal" href="#reader-modal"><span class="listimg" id="list1" data-n="1"></span></a>
+						<div id="episodetitle2">
+							<p><span class="episodetitle--main">あらすじ</span>
+							</p>
+						</div>
+					</div>
+				</div>
+				<div class="swiper-slide" id="cover-wrapper">
+					<div id="wrapper" dir="ltr">
+						<a rel="leanModal" href="#reader-modal"><span class="listimg" id="list2" data-n="2"></span></a>
+						<div id="episodetitle2">
+							<p><span class="episodetitle--main">エピソード1</span>
+								<br><span class="episodetitle--sub">視線を集中すると、イエローのカーソルと...</span></p>
+						</div>
+					</div>
+				</div>
+				<div class="swiper-slide" id="cover-wrapper">
+					<div id="wrapper" dir="ltr">
+						<a rel="leanModal" href="#reader-modal"><span class="listimg" id="list3" data-n="3"></span></a>
+						<div id="episodetitle2">
+							<p><span class="episodetitle--main">エピソード2</span>
+								<br><span class="episodetitle--sub">アスナは、薄青い闇の中でも解るほど...</span></p>
+						</div>
+					</div>
+				</div>
+				<div class="swiper-slide" id="cover-wrapper">
+					<div id="wrapper" dir="ltr">
+						<a rel="leanModal" href="#reader-modal"><span class="listimg" id="list4" data-n="4"></span></a>
+						<div id="episodetitle2">
+							<p><span class="episodetitle--main">あとがき</span></p>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!--end swiper-wrapper-->
+
+			<div class="swiper-scrollbar"></div>
+		</div>
+		<!--end cover-list-->
+
+
+		<!--本文-->
+		<div class="swiper-container reader" id="reader-modal">
+			<!-- Add Page Navigation -->
+			<div id="navi--episode--backtolist" style="display:inline;">
+				<img src="img_arrow/img_back_eplist@3x.png" class="modal_close">
+				<p class="episodetitle--pageview"><span class="episodetitle--pagenav">エピソードナンバー：タイトル</span></p>
+			</div>
+			<!-- Add Arrows -->
+			<div id='arrow' style="display:inline;">
+				<!-- <div class="swiper-button-next"></div>
+				<div class="swiper-button-prev"></div> -->
+				<div class="button-next"></div>
+				<div class="button-prev"></div>
+			</div>
+			<!-- Add Pagination Balloon -->
+			<div class="swiper-scrollbar" id="bar2" style="display:inline">
+			</div>
+			<!-- <div class="swiper-wrapper"> -->
+				<div id="main">
+
+				</div>
+			<!-- </div> -->
+		</div>
+		<!--end reader-->
+
+    <!-- Preload Big Image Contents-->
+		<img src="bookillust/cover@3x.png" alt="illust" id="top" style="display:none;"/>
+		<img src="./bookillust/cover2@3x.png" alt="illust" style="display:none;"/>
+		<img class="gyro" src="bookillust/episode2_top_gimic@3x.png" alt="illust" id="top3" style="display:none;"/>
+		<img src="./bookillust/cover_back@3x.png" alt="illust" id="top4" style="display:none;"/>
+
+		<script>
+			//表紙リストの制御
+			var coverSwiper = new Swiper('.cover-list', {
+				scrollbar: '.swiper-scrollbar',
+				slidesPerView: 'auto',
+				spaceBetween: 20,
+				centeredSlides: true
+			});
+			//本文スライドの制御
+			var readerSwiper = new Swiper('.reader', {
+				scrollbar: '.swiper-scrollbar',
+				slidesPerView: 1,
+				nextButton: '.swiper-button-next',
+				prevButton: '.swiper-button-prev',
+				centeredSlides: true
+			});
+
+			//二つのスクロールを同期
+			coverSwiper.params.control = readerSwiper;
+			readerSwiper.params.control = coverSwiper;
+
+			$('.swiper-scrollbar').width(80 + "vw");
+			$('.swiper-scrollbar-drag').width(15 + "px");
+		</script>
+		<script type="text/javascript">
+			$(function() {
+				$('a[rel*=leanModal]').leanModal({
+					top: 0, // モーダルウィンドウの縦位置を指定
+					overlay: 1, // 背面の透明度
+					closeButton: ".modal_close" // 閉じるボタンのCSS classを指定
+				});
+			});
+		</script>
+		<script type="text/javascript" src="js/script1.js"></script>
+	</body>
+
+</html>
