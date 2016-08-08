@@ -22,7 +22,6 @@ a:link, a:hover, a:active, a:visited {
 
 .swiper-container {
     width: 100%;
-    /*height: 100%;*/
 }
 
 
@@ -214,7 +213,6 @@ div.page1top {
 
 .talk_img {
     width: 100%;
-    margin-bottom: 70vh;
 }
 
 li {
@@ -580,13 +578,20 @@ span.booktitle--sub {
     width: 14vw;
     z-index: 4;
     padding: 0 20px 0 20px;
-    /*margin-left: 42vw;*/
 }
 
+#loading img{
+    width: 10vw;
+}
+#talk_p #loading img{
+    margin-left: 40vw;
+}
+#loading_t img{
+    width: 10vw;
+    margin-left:43vw; 
+}
 
 /*会話文吹き出し*/
-
-
 /*アスナの吹き出し*/
 
 .left_box {
@@ -695,15 +700,11 @@ span.booktitle--sub {
 #red:after {
     border-color: rgba(248, 102, 104, 0);
     border-bottom-color: #f86668;
-    /*border-width: 30px;
-    margin-left: -30px;*/
 }
 
 #red:before {
     border-color: rgba(248, 102, 104, 0);
     border-bottom-color: #f86668;
-    /*border-width: 31px;
-    margin-left: -31px;*/
 }
 
 
@@ -890,13 +891,10 @@ div.back-link {
     margin: 0 20px;
     background-color: none;
     transition: background-color 0.5s;
-    /*transition: opacity 0.5s;
-    opacity: 0;*/
 }
 
 div.back-link-hover {
     background-color: rgb(255, 255, 0);
-    /*opacity: 1;*/
 }
 
 div.link {
@@ -925,7 +923,6 @@ div.reader {
 .button-next {
     /*opacity: 0.35;*/
     cursor: auto;
-    /*pointer-events: none;*/
     background-image: url("../img_arrow/img_arrow_read_right@3x.png");
     background-size: 12vw 12vw;
     width: 12vw;
@@ -936,17 +933,12 @@ div.reader {
     top: 50%;
     margin-top: -22px;
     z-index: 10;
-    /*-moz-background-size: 27px 44px;
-    -webkit-background-size: 27px 44px;
-    background-size: 27px 44px;*/
     background-position: center;
     background-repeat: no-repeat;
 }
 
 .button-prev {
-    /*opacity: 0.35;*/
     cursor: auto;
-    /*pointer-events: none;*/
     background-image: url("../img_arrow/img_arrow_read_left@3x.png");
     background-size: 12vw 12vw;
     width: 12vw;
@@ -957,9 +949,6 @@ div.reader {
     top: 50%;
     margin-top: -22px;
     z-index: 10;
-    /*-moz-background-size: 27px 44px;
-    -webkit-background-size: 27px 44px;
-    background-size: 27px 44px;*/
     background-position: center;
     background-repeat: no-repeat;
 }

@@ -32,7 +32,7 @@ var talk = [{
     "name": "img"
 
 }, {
-    "message": "<div style='margin-top:-70vh;'>その声に、俺はようやくアスナの行動の意図するところを理解した。</div>"
+    "message": "その声に、俺はようやくアスナの行動の意図するところを理解した。</div>"
 }, {
     "message": "つまり、彼女は──俺の、今夜一緒にいたい、という台詞を、俺より一段踏み込んだ意味に解釈したのだ。"
 }, {
@@ -106,10 +106,6 @@ var timer,
     count4 = 0,
     switcher = true;
 
-// window.onload = function(){
-//   document.getElementById('bar2').style.display = "none";
-// };
-
 //本文タップイベント
 $(function() {
     $('.content-wrapper').bind('touchstart', onTouchStart); //指が触れたか検知
@@ -181,7 +177,13 @@ function add() {
     timer = setInterval(function() {
         if (count >= talk.length) {
             clearInterval(timer);
+            $("#loading").remove();
             return;
+        }
+        if(count == 0){
+            $("#loading_t").remove();
+        }else{
+            $("#loading").remove();
         }
         if (talk[count].name == "asuna") { //アスナの発言
 
@@ -213,9 +215,13 @@ function add() {
             var parent_object = document.getElementById("talk_p");
             parent_object.appendChild(p_element);
         }
+        var p_element = document.createElement("p");
+            p_element.innerHTML = '<br><div id="loading" class="animated fadeIn"><img src="img_arrow/loading.gif"></div>';
+            var parent_object = document.getElementById("talk_p");
+            parent_object.appendChild(p_element);
 
         count++;
-        talkScroll();
+        setTimeout('talkScroll()',10);
     }, 3000);
 }
 
@@ -225,10 +231,12 @@ function add_prol() {
     timer = setInterval(function() {
         if (count2 >= prol.length) {
             clearInterval(timer);
+            $("#loading").remove();
             return;
         }
+         $("#loading").remove();
         var p_element = document.createElement("p");
-        p_element.innerHTML = '<div><span class="animated fadeInUp">' + prol[count2].message + '</span></div>';
+        p_element.innerHTML = '<div><span class="animated fadeInUp">' + prol[count2].message + '</span></div><br><div id="loading" class="animated fadeIn"><img src="img_arrow/loading.gif"></div>';
         var parent_object = document.getElementById("title_p");
         parent_object.appendChild(p_element);
         count2++;
@@ -272,67 +280,92 @@ var count_s,
 setInterval('arrows()', 1000);
 
 function arrows() {
-    //ページ遷移したら、上に戻る
     $("#prol").bind('inview', function(event, isInView, visiblePartX, visiblePartY) {
         if (isInView) {
             $('.episodetitle--pagenav').text('エピソード01：あらすじ');
             $('.swiper-wrapper').css('transform', 'translate3d(15vw, 0px, 0px)');
             $('.swiper-scrollbar-drag').css('transform', 'translate3d(0px, 0px, 0px)');
-        } else {}
+
+            //追加処理初期化
+            count = 0;
+        } else {
+        }
     });
     $("#title_p").bind('inview', function(event, isInView, visiblePartX, visiblePartY) {
         if (isInView) {
             add_prol();
-        } else {}
+        } else {
+            //追加処理初期化
+            count2 = 0;
+        }
     });
     $("#page1").bind('inview', function(event, isInView, visiblePartX, visiblePartY) {
         if (isInView) {
             $('.episodetitle--pagenav').text('エピソード02：視線を集中すると');
             $('.swiper-wrapper').css('transform', 'translate3d(-63vw, 0px, 0px)');
             $('.swiper-scrollbar-drag').css('transform', 'translate3d(25vw, 0px, 0px)');
-        } else {}
+
+            count2 = 0;
+            count = 0;
+        } else {
+        }
     });
     //斜線テキストを挿入
     $("#skew").bind('inview', function(event, isInView, visiblePartX, visiblePartY) {
-        if (count_s !== 1) {
-            var p_element = document.createElement("span");
-            p_element.innerHTML = '<div class="animated slideInLeft"><span class="box" id="skew-25y" style="background-color:black;">&nbsp;&nbsp;&nbsp;一撃で──死亡だと──!?</span></div>';
-            var parent_object = document.getElementById("skew");
-            parent_object.appendChild(p_element);
-            count_s = 1;
+        if(isInView){
+            if (count_s !== 1) {
+                var p_element = document.createElement("span");
+                p_element.innerHTML = '<div class="animated slideInLeft"><span class="box" id="skew-25y" style="background-color:black;">&nbsp;&nbsp;&nbsp;一撃で──死亡だと──!?</span></div>';
+                var parent_object = document.getElementById("skew");
+                parent_object.appendChild(p_element);
+                count_s = 1;
 
-            $('.animated').css(
-                '-webkit-animation-duration', '0.5s');
-            $('.animated').css(
-                'animation-duration', '0.5s');
+                $('.animated').css(
+                    '-webkit-animation-duration', '0.5s');
+                $('.animated').css(
+                    'animation-duration', '0.5s');
+            }
+        }else{
+            $('.box').remove();
+            count_s = 0;
         }
     });
     $("#skew2").bind('inview', function(event, isInView, visiblePartX, visiblePartY) {
-        if (count_s2 !== 1) {
-            var p_element = document.createElement("span");
-            p_element.innerHTML = '<div class="animated slideInLeft"><span class="box" id="skew-25y">&nbsp;&nbsp;&nbsp;&nbsp;<span id="font">わ</span><span id="font1">あ</span><span id="font2">あ</span><span id="font3">あ</span><span id="font4">ーーー</span><span id="span5">!！</span></span></div>';
-            var parent_object = document.getElementById("skew2");
-            parent_object.appendChild(p_element);
-            count_s2 = 1;
+        if(isInView){
+            if (count_s2 !== 1) {
+                var p_element = document.createElement("span");
+                p_element.innerHTML = '<div class="animated slideInLeft"><span class="box" id="skew-25y">&nbsp;&nbsp;&nbsp;&nbsp;<span id="font">わ</span><span id="font1">あ</span><span id="font2">あ</span><span id="font3">あ</span><span id="font4">ーーー</span><span id="span5">!！</span></span></div>';
+                var parent_object = document.getElementById("skew2");
+                parent_object.appendChild(p_element);
+                count_s2 = 1;
 
-            $('.animated').css(
-                '-webkit-animation-duration', '0.5s');
-            $('.animated').css(
-                'animation-duration', '0.5s');
+                $('.animated').css(
+                    '-webkit-animation-duration', '0.5s');
+                $('.animated').css(
+                    'animation-duration', '0.5s');
+            }
+        }else{
+            $('.box').remove();
+            count_s2 = 0;
         }
     });
     $("#skew3").bind('inview', function(event, isInView, visiblePartX, visiblePartY) {
-        if (count_s3 !== 1) {
-            var p_element = document.createElement("span");
-            p_element.innerHTML = '<div class="animated slideInLeft"><span class="box" id="skew-25y">&nbsp;&nbsp;&nbsp;俺は我知らず飛び出していた。</span></div>';
-            var parent_object = document.getElementById("skew3");
-            parent_object.appendChild(p_element);
-            count_s3 = 1;
+        if(isInView){
+            if (count_s3 !== 1) {
+                var p_element = document.createElement("span");
+                p_element.innerHTML = '<div class="animated slideInLeft"><span class="box" id="skew-25y">&nbsp;&nbsp;&nbsp;俺は我知らず飛び出していた。</span></div>';
+                var parent_object = document.getElementById("skew3");
+                parent_object.appendChild(p_element);
+                count_s3 = 1;
 
-            $('.animated').css(
-                '-webkit-animation-duration', '0.5s');
-            $('.animated').css(
-                'animation-duration', '0.5s');
+                $('.animated').css(
+                    '-webkit-animation-duration', '0.5s');
+                $('.animated').css(
+                    'animation-duration', '0.5s');
+            }
+        }else{
+            $('.box').remove();
+            count_s3 = 0;
         }
     });
     $("#page2").bind('inview', function(event, isInView, visiblePartX, visiblePartY) {
@@ -355,6 +388,8 @@ function arrows() {
             $('.episodetitle--pagenav').text('エピソード04：あとがき');
             $('.swiper-wrapper').css('transform', 'translate3d(-210vw, 0px, 0px)');
             $('.swiper-scrollbar-drag').css('transform', 'translate3d(75vw, 0px, 0px)');
+
+            count = 0;
         } else {}
     });
 }
